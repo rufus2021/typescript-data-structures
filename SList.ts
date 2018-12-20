@@ -196,11 +196,10 @@ export default class SList implements SListIface {
       }
 
       const temp = node.next.next;
+      node.next.next = null;
       node.next = temp;
       if (temp === null) {
         this.tail = node;
-      } else {
-        node.next.next = null;
       }
     }
 
