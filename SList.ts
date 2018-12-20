@@ -12,7 +12,7 @@ interface SListIface {
   pushBack(value: nodeValue): void;
   topBack(): nodeValue | void;
   popBack(): void;
-  find(idx: number): nodeValue | void;
+  findAt(idx: number): nodeValue | void;
   erase(idx: number): void;
   empty(): boolean;
   getSize(): number;
@@ -84,7 +84,7 @@ export default class SList implements SListIface {
 
     this.head = this.head.next;
 
-    // if head is null, we had one item now we have zero
+    // if head is null, we had one node, now we have zero
     // so tail should also be set to null
     if (this.head === null) {
       this.tail = null;
@@ -140,9 +140,9 @@ export default class SList implements SListIface {
         node = node.next;
       }
 
-      // node now points to the next to the last item
-      // setting node.next to null orphans our last item
-      // then we update the tail to point to node
+      // node now points to the next to last item
+      // setting node.next to null orphans our last node for garbage collection
+      // then we update the tail to point to the node before the old tail
       node.next = null;
       this.tail = node;
     }
@@ -152,17 +152,17 @@ export default class SList implements SListIface {
 
   // find a node by its index in the list
   // O(n)
-  find(idx: number): nodeValue | void {
+  findAt(idx: number): nodeValue | void {
     if (this.head === null) {
       throw new Error('Empty list');
     }
 
+    if (idx >= this.size) {
+      throw new Error('Out of range');
+    }
+
     let node = this.head;
     while (idx > 0) {
-      if (node.next === null) {
-        throw new Error('Out of range');
-      }
-
       node = node.next;
       idx--;
     }
@@ -187,9 +187,7 @@ export default class SList implements SListIface {
     if (this.head === this.tail) {
       this.head = this.tail = null;
     } else if (idx === 0) {
-      let temp = node.next;
-      this.head.next = null;
-      this.head = temp;
+      this.head = node.next;
     } else {
       let index = 1;
       while (index !== idx && node.next !== null) {
@@ -197,14 +195,15 @@ export default class SList implements SListIface {
         index++;
       }
 
-      let temp = node.next.next;
-      node.next.next = null;
+      const temp = node.next.next;
       node.next = temp;
       if (temp === null) {
         this.tail = node;
+      } else {
+        node.next.next = null;
       }
-      temp = null;
     }
+
     this.downSize();
   }
 
@@ -216,7 +215,6 @@ export default class SList implements SListIface {
     let node = this.head;
     if (node === null) {
       throw new Error('Empty list');
-      return;
     }
 
     while (node !== null && node.data !== key) {
@@ -225,7 +223,6 @@ export default class SList implements SListIface {
 
     if (node === null) {
       throw new Error('Value to insert after not found');
-      return;
     }
 
     newNode.next = node.next;
