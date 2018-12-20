@@ -271,7 +271,7 @@ export default class SList implements SListIface {
     return this.size;
   }
 
-  printVerbose(): void {
+  print(): void {
     if (this.head === null) {
       return;
     }
