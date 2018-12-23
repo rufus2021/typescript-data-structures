@@ -130,15 +130,14 @@ describe('Singley Linked List', function () {
       sList.pushBack(1);
     });
 
-    it('removes the tail node and decrements list size', () => {
+    it('decrements the list size by one', () => {
       assert.equal(sList.size, 1);
       sList.popBack();
       assert.equal(sList.size, 0);
     });
 
-    it('removes the last node and resets tail', () => {
-      assert.equal(sList.topBack(), 1);
-      assert.equal(sList.size, 1);
+    it('resets the tail if the list had one node', () => {
+      assert.equal(sList.tail.data, 1);
       sList.popBack();
       assert.equal(sList.tail, null);
     });
@@ -147,17 +146,8 @@ describe('Singley Linked List', function () {
       sList.pushBack(2);
       sList.pushBack(3);
       assert.equal(sList.tail.data, 3);
-      assert.equal(sList.tail.next, null);
       sList.popBack();
       assert.equal(sList.tail.data, 2);
-      assert.equal(sList.tail.next, null);
-    });
-
-    it('updates the list size', () => {
-      // beforeEach adds to the list
-      assert.equal(sList.size, 1);
-      sList.popBack();
-      assert.equal(sList.size, 0);
     });
   });
 
@@ -191,11 +181,19 @@ describe('Singley Linked List', function () {
       expect(() => sList.erase(5)).to.throw('Out of range');
     });
 
+    it('decrements ths list size by one', () => {
+      sList.pushFront(2);
+      sList.pushFront(1);
+      assert.equal(sList.size, 2);
+      sList.erase(0);
+      assert.equal(sList.size, 1);
+    });
+
     it('resets head and tail if the list had one node', () => {
       sList.pushFront(1);
       assert.equal(sList.head.data, 1);
       assert.equal(sList.tail.data, 1);
-      sList.popBack();
+      sList.erase(0);
       assert.equal(sList.head, null);
       assert.equal(sList.tail, null);
     });
@@ -208,15 +206,6 @@ describe('Singley Linked List', function () {
       assert.equal(sList.head.data, 2);
     });
 
-    it('removes a node', () => {
-      sList.pushFront(3);
-      sList.pushFront(2);
-      sList.pushFront(1);
-      assert.equal(sList.findAt(1), 2);
-      sList.erase(1);
-      assert.equal(sList.findAt(1), 3);
-    });
-
     it('resets the tail if the last node is removed', () => {
       sList.pushFront(3);
       sList.pushFront(2);
@@ -226,13 +215,13 @@ describe('Singley Linked List', function () {
       assert.equal(sList.tail.data, 2);
     });
 
-    it('decrements ths list size', () => {
+    it('removes a node', () => {
       sList.pushFront(3);
       sList.pushFront(2);
       sList.pushFront(1);
-      assert.equal(sList.size, 3);
-      sList.erase(0);
-      assert.equal(sList.size, 2);
+      assert.equal(sList.findAt(1), 2);
+      sList.erase(1);
+      assert.equal(sList.findAt(1), 3);
     });
   });
 
@@ -246,11 +235,11 @@ describe('Singley Linked List', function () {
       expect(() => sList.addAfter(3)).to.throw('Value to insert after not found');
     });
 
-    it('adds a node', () => {
+    it('increments the list size by one', () => {
       sList.pushFront(1);
-      expect(() => sList.findAt(1)).to.throw('Out of range');
+      assert.equal(sList.size, 1);
       sList.addAfter(1, 2);
-      assert.equal(sList.findAt(1), 2);
+      assert.equal(sList.size, 2);
     });
 
     it('updates the tail', () => {
@@ -260,11 +249,11 @@ describe('Singley Linked List', function () {
       assert.equal(sList.tail.data, 2);
     });
 
-    it('updates the list size', () => {
+    it('adds a node', () => {
       sList.pushFront(1);
-      assert.equal(sList.size, 1);
+      expect(() => sList.findAt(1)).to.throw('Out of range');
       sList.addAfter(1, 2);
-      assert.equal(sList.size, 2);
+      assert.equal(sList.findAt(1), 2);
     });
   });
 
@@ -278,11 +267,11 @@ describe('Singley Linked List', function () {
       expect(() => sList.addBefore(3)).to.throw('Value to insert before not found');
     });
 
-    it('adds a node', () => {
-      sList.pushFront(1);
-      expect(() => sList.findAt(1)).to.throw('Out of range');
-      sList.addBefore(1, 2);
-      assert.equal(sList.findAt(0), 2);
+    it('increments the list size by one', () => {
+      sList.pushFront(2);
+      assert.equal(sList.size, 1);
+      sList.addBefore(2, 1);
+      assert.equal(sList.size, 2);
     });
 
     it('updates the head if inserting at position 1', () => {
@@ -293,11 +282,11 @@ describe('Singley Linked List', function () {
       assert.equal(sList.head.data, 1);
     });
 
-    it('updates the list size', () => {
-      sList.pushFront(2);
-      assert.equal(sList.size, 1);
-      sList.addBefore(2, 1);
-      assert.equal(sList.size, 2);
+    it('adds a node', () => {
+      sList.pushFront(1);
+      expect(() => sList.findAt(1)).to.throw('Out of range');
+      sList.addBefore(1, 2);
+      assert.equal(sList.findAt(0), 2);
     });
   });
 
