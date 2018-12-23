@@ -77,6 +77,7 @@ export default class SList implements SListIface {
   }
 
   // remove front item
+  // O(1)
   popFront(): number | void {
     if (this.head === null) {
       throw new Error('Empty list');
@@ -244,21 +245,26 @@ export default class SList implements SListIface {
       throw new Error('Empty list');
     }
 
-    while (node.next !== null && node.next.data !== key) {
+    while (node.data !== key && node.next !== null && node.next.data !== key) {
       node = node.next;
     }
 
-    if (node === null) {
+    if (node.data !== key || node === null) {
       throw new Error('Value to insert before not found');
     }
 
-    if (this.head === this.tail) {
-      this.head = newNode;
+    // inserting at position 1
+    // points the new node to head
+    // and sets itself to the head
+    if (node === this.head) {
       newNode.next = node;
+      this.head = newNode;
     } else {
       newNode.next = node.next;
       node.next = newNode;
     }
+
+    this.size++;
   }
 
   // check if the list is empty
