@@ -25,8 +25,8 @@ interface SListIface {
  * with a tail reference
  */
 export default class SList implements SListIface {
-  private head: Node;
-  private tail: Node;
+  public head: Node;
+  public tail: Node;
   private size: number;
 
   constructor() {

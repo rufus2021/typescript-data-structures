@@ -19,7 +19,7 @@ describe('Singley Linked List', function () {
   it('has default properties set', () => {
     assert.equal(sList.head, null);
     assert.equal(sList.tail, null);
-    assert.equal(sList.size, 0);
+    assert.equal(sList.getSize(), 0);
   });
 
   describe('with one node', () => {
@@ -46,9 +46,9 @@ describe('Singley Linked List', function () {
     });
 
     it('updates the size property', () => {
-      assert.equal(sList.size, 1);
+      assert.equal(sList.getSize(), 1);
       sList.pushFront(1);
-      assert.equal(sList.size, 2);
+      assert.equal(sList.getSize(), 2);
     });
   });
 
@@ -73,7 +73,7 @@ describe('Singley Linked List', function () {
 
     it('removes the front node and resets head and tail', () => {
       assert.equal(sList.topFront(), 1);
-      assert.equal(sList.size, 1);
+      assert.equal(sList.getSize(), 1);
       sList.popFront();
       assert.equal(sList.head, null);
       assert.equal(sList.tail, null);
@@ -91,9 +91,9 @@ describe('Singley Linked List', function () {
 
     it('decrements ths list size', () => {
       sList.pushFront(3);
-      assert.equal(sList.size, 2);
+      assert.equal(sList.getSize(), 2);
       sList.popFront(0);
-      assert.equal(sList.size, 1);
+      assert.equal(sList.getSize(), 1);
     });
   });
 
@@ -111,9 +111,9 @@ describe('Singley Linked List', function () {
     });
 
     it('updates the size property', () => {
-      assert.equal(sList.size, 0);
+      assert.equal(sList.getSize(), 0);
       sList.pushBack(1);
-      assert.equal(sList.size, 1);
+      assert.equal(sList.getSize(), 1);
     });
   });
 
@@ -131,9 +131,9 @@ describe('Singley Linked List', function () {
     });
 
     it('decrements the list size by one', () => {
-      assert.equal(sList.size, 1);
+      assert.equal(sList.getSize(), 1);
       sList.popBack();
-      assert.equal(sList.size, 0);
+      assert.equal(sList.getSize(), 0);
     });
 
     it('resets the tail if the list had one node', () => {
@@ -184,9 +184,9 @@ describe('Singley Linked List', function () {
     it('decrements ths list size by one', () => {
       sList.pushFront(2);
       sList.pushFront(1);
-      assert.equal(sList.size, 2);
+      assert.equal(sList.getSize(), 2);
       sList.erase(0);
-      assert.equal(sList.size, 1);
+      assert.equal(sList.getSize(), 1);
     });
 
     it('resets head and tail if the list had one node', () => {
@@ -237,9 +237,9 @@ describe('Singley Linked List', function () {
 
     it('increments the list size by one', () => {
       sList.pushFront(1);
-      assert.equal(sList.size, 1);
+      assert.equal(sList.getSize(), 1);
       sList.addAfter(1, 2);
-      assert.equal(sList.size, 2);
+      assert.equal(sList.getSize(), 2);
     });
 
     it('updates the tail', () => {
@@ -269,9 +269,9 @@ describe('Singley Linked List', function () {
 
     it('increments the list size by one', () => {
       sList.pushFront(2);
-      assert.equal(sList.size, 1);
+      assert.equal(sList.getSize(), 1);
       sList.addBefore(2, 1);
-      assert.equal(sList.size, 2);
+      assert.equal(sList.getSize(), 2);
     });
 
     it('updates the head if inserting at position 1', () => {
