@@ -3,7 +3,8 @@
     "noImplicitAny": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "misc/**/*"
   ],
   "exclude": [
       "node_modules",
