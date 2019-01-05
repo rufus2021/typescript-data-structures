@@ -123,11 +123,11 @@ export default class DynamicArray implements DynamicArrayIface {
       throw new Error('Out of range');
     }
 
-    this.dynamicArray[i] = null;
-
-    // if end pop last element
-    // if not, move all values at i + 1 up 1 value
-    // pop last value to set correct length
+    for(; i < size; i++) {
+      this.dynamicArray[i] = this.dynamicArray[i + 1];
+    }
+    // cheat w/ a built in to update array length
+    this.dynamicArray.pop();
   }
 
   insertAt(index: number, val: number): void {
@@ -165,9 +165,10 @@ export default class DynamicArray implements DynamicArrayIface {
     if (0 === size) {
       throw new Error('Empty array');
     }
+
     // cheating w/ a built in
-    // delete sets the value to undefined and
-    // won't update the array length
+    // delete sets the value to undefined
+    // and won't update the array length
     return this.dynamicArray.pop();
   }
 

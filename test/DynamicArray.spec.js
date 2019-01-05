@@ -136,13 +136,9 @@ describe('Dynamic Array', function () {
       assert.equal(dArray.getAt(2), 3);
       assert.equal(dArray.getAt(3), 4);
       dArray.deleteAt(0);
-      dArray.deleteAt(1);
-      dArray.deleteAt(2);
-      dArray.deleteAt(3);
-      assert.isNull(dArray.getAt(0));
-      assert.isNull(dArray.getAt(1));
-      assert.isNull(dArray.getAt(2));
-      assert.isNull(dArray.getAt(3));
+      assert.equal(dArray.getAt(0), 2);
+      assert.equal(dArray.getAt(1), 3);
+      assert.equal(dArray.getAt(2), 4);
     });
 
     it('insertAt - (with room) - adds a value at a given position', () => {
