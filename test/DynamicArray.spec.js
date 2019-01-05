@@ -223,13 +223,53 @@ describe('Dynamic Array', function () {
       expect(() => dArray.remove(3)).to.throw('Value not found');
     });
 
-    it('remove (deletes the index of a given value)', () => {
-
+    it('remove (deletes the last item)', () => {
+      dArray.append(1);
+      dArray.append(2);
+      dArray.append(3);
+      dArray.append(4);
+      dArray.remove(4);
+      expect(() => dArray.getAt(3)).to.throw('Out of range');
     });
 
-    // it('find', () => {
+    it('remove (deletes the index of a given value)', () => {
+      dArray.append(1);
+      dArray.append(2);
+      dArray.append(3);
+      dArray.append(4);
+      dArray.remove(2);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 3);
+      assert.equal(dArray.getAt(2), 4);
+      expect(() => dArray.getAt(3)).to.throw('Out of range');
+    });
 
-    // });
-
+    it('remove with double capacity (deletes the index of a given value)', () => {
+      dArray.append(1);
+      dArray.append(2);
+      dArray.append(3);
+      dArray.append(4);
+      dArray.append(5);
+      dArray.append(6);
+      dArray.append(7);
+      dArray.append(8);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 2);
+      assert.equal(dArray.getAt(2), 3);
+      assert.equal(dArray.getAt(3), 4);
+      assert.equal(dArray.getAt(4), 5);
+      assert.equal(dArray.getAt(5), 6);
+      assert.equal(dArray.getAt(6), 7);
+      assert.equal(dArray.getAt(7), 8);
+      dArray.remove(6);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 2);
+      assert.equal(dArray.getAt(2), 3);
+      assert.equal(dArray.getAt(3), 4);
+      assert.equal(dArray.getAt(4), 5);
+      assert.equal(dArray.getAt(5), 7);
+      assert.equal(dArray.getAt(6), 8);
+      expect(() => dArray.getAt(7)).to.throw('Out of range');
+    });
   });
 });

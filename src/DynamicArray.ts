@@ -5,10 +5,10 @@ interface DynamicArrayIface {
   append(val: number): void;
   prepend(val: number): void;
   set(i: number, val: number): void;
-  getAt(i: number): number; // value at given index
+  getAt(i: number): number;
   deleteAt(i: number): void;
   insertAt(i: number, val: number): void;
-  find(val: number): number; // index value or -1 if not found
+  find(val: number): number;
   pop(): number;
   remove(val: number): void;
 }
@@ -85,6 +85,7 @@ export default class DynamicArray implements DynamicArrayIface {
     }
   }
 
+  // O(1)
   set(i: number, val: number): void {
     if (i >= this.capacity) {
       throw new Error('Out of range');
@@ -107,12 +108,8 @@ export default class DynamicArray implements DynamicArrayIface {
     return this.dynamicArray[i];
   }
 
-  // O(1) if end
-  // O(n) anywhere else
-  /**
-   *
-   * NOT COMPLETE
-   */
+  // O(1) at end
+  // O(n) at arbitrary value
   deleteAt(i: number): void {
     const size = this.getSize();
     if (0 === size) {
@@ -130,6 +127,8 @@ export default class DynamicArray implements DynamicArrayIface {
     this.dynamicArray.pop();
   }
 
+  // O(1) at end
+  // O(n) at arbitrary value
   insertAt(index: number, val: number): void {
     const size = this.getSize();
     if (size === this.capacity) {
@@ -160,6 +159,7 @@ export default class DynamicArray implements DynamicArrayIface {
     return -1;
   }
 
+  // O(1)
   pop(): number {
     const size = this.getSize();
     if (0 === size) {
@@ -172,12 +172,31 @@ export default class DynamicArray implements DynamicArrayIface {
     return this.dynamicArray.pop();
   }
 
+  // O(n)
+  // iterate once to find the index of val
+  // and another to update
+  // remove first occurence of val
   remove(val: number): void {
     const size = this.getSize();
+    let index;
     for (let i = 0; i < size; i++) {
-
+      if (this.dynamicArray[i] === val) {
+        index = i;
+        break;
+      }
     }
 
-    throw new Error('Value not found');
+    if (!index) {
+      throw new Error('Value not found');
+    }
+
+    for (; index < size - 1; index++) {
+      if (this.dynamicArray[index + 1]) {
+        this.dynamicArray[index] = this.dynamicArray[index + 1];
+      }
+    }
+    // always remove the last item since
+    // one value gets removed from the array
+    this.dynamicArray.pop();
   }
 }
