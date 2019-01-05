@@ -7,7 +7,7 @@ interface DynamicArrayIface {
   set(i: number, val: number): void;
   getAt(i: number): number; // value at given index
   deleteAt(i: number): void;
-  // insertAt(i: number, val: number): void;
+  insertAt(i: number, val: number): void;
   find(val: number): number; // index value or -1 if not found
   pop(): number;
   remove(val: number): void;
@@ -130,6 +130,25 @@ export default class DynamicArray implements DynamicArrayIface {
     // pop last value to set correct length
   }
 
+  insertAt(index: number, val: number): void {
+    const size = this.getSize();
+    if (size === this.capacity) {
+      const replacement = [];
+      for (let i = 0; i < size; i++) {
+        replacement[i] = this.dynamicArray[i];
+      }
+      this.dynamicArray = replacement;
+      this.capacity*= 2;
+    }
+
+    let interator = this.getSize() - 1;
+    while (interator >= index) {
+      this.dynamicArray[interator + 1] = this.dynamicArray[interator];
+      interator--;
+    }
+    this.dynamicArray[index] = val;
+  }
+
   // O(n)
   find(val: number): number {
     const size = this.getSize();
@@ -142,7 +161,7 @@ export default class DynamicArray implements DynamicArrayIface {
   }
 
   pop(): number {
-    const size = this.getSize()
+    const size = this.getSize();
     if (0 === size) {
       throw new Error('Empty array');
     }

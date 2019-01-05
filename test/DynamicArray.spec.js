@@ -145,6 +145,60 @@ describe('Dynamic Array', function () {
       assert.isNull(dArray.getAt(3));
     });
 
+    it('insertAt - (with room) - adds a value at a given position', () => {
+      dArray.append(1);
+      dArray.append(2);
+      dArray.append(3);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 2);
+      assert.equal(dArray.getAt(2), 3);
+      dArray.insertAt(1, 5);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 5);
+      assert.equal(dArray.getAt(2), 2);
+      assert.equal(dArray.getAt(3), 3);
+    });
+
+    it('insertAt (at capacity)', () => {
+      dArray.append(1);
+      dArray.append(2);
+      dArray.append(3);
+      dArray.append(4);
+      assert.equal(dArray.getCapacity(), 4);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 2);
+      assert.equal(dArray.getAt(2), 3);
+      assert.equal(dArray.getAt(3), 4);
+      dArray.insertAt(2, 5);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 2);
+      assert.equal(dArray.getAt(2), 5);
+      assert.equal(dArray.getAt(3), 3);
+      assert.equal(dArray.getAt(4), 4);
+      assert.equal(dArray.getCapacity(), 8);
+    });
+
+    it('insertAt (with empty indexes)', () => {
+      dArray.append(1);
+      dArray.append(2);
+      dArray.append(3);
+      dArray.append(4);
+      assert.equal(dArray.getCapacity(), 4);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 2);
+      assert.equal(dArray.getAt(2), 3);
+      assert.equal(dArray.getAt(3), 4);
+      dArray.insertAt(6, 5);
+      assert.equal(dArray.getAt(0), 1);
+      assert.equal(dArray.getAt(1), 2);
+      assert.equal(dArray.getAt(2), 3);
+      assert.equal(dArray.getAt(3), 4);
+      assert.isUndefined(dArray.getAt(4));
+      assert.isUndefined(dArray.getAt(5));
+      assert.equal(dArray.getAt(6), 5);
+      assert.equal(dArray.getCapacity(), 8);
+    });
+
     it('find (returns the index position of a given value', () => {
       dArray.append(3);
       dArray.append(4);
