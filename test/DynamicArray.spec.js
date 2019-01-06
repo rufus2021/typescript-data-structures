@@ -271,5 +271,25 @@ describe('Dynamic Array', function () {
       assert.equal(dArray.get(6), 8);
       expect(() => dArray.get(7)).to.throw('Out of range');
     });
+
+    it('PRIVATE resize (decreases the capacity when the new size is 1/4 of capacity', () => {
+      dArray.append(1);
+      dArray.append(2);
+      dArray.append(3);
+      dArray.append(4);
+      assert.equal(dArray.capacity(), 4);
+      dArray.append(5);
+      dArray.append(6);
+      dArray.append(7);
+      dArray.append(8);
+      dArray.append(9);
+      assert.equal(dArray.capacity(), 16);
+      dArray.pop();
+      dArray.pop();
+      dArray.pop();
+      dArray.pop();
+      dArray.pop();
+      assert.equal(dArray.capacity(), 8);
+    });
   });
 });

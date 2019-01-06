@@ -22,6 +22,16 @@ export default class DynamicArray implements DynamicArrayContract {
     this._capacity = 4;
   }
 
+  // double capacity if we reach limit
+  // half capacity if we get to 1/4 use
+  private resize(): void {
+    if (this.size() === this._capacity) {
+      this._capacity *= 2;
+    } else if (this.size() === this._capacity / 4) {
+      this._capacity /= 2;
+    }
+  }
+
   capacity(): number {
     return this._capacity;
   }
@@ -51,7 +61,7 @@ export default class DynamicArray implements DynamicArrayContract {
       }
       replacement[size] = val;
       this.dynamicArray = replacement;
-      this._capacity *= 2;
+      this.resize();
     }
 
     this.dynamicArray[size] = val;
@@ -73,7 +83,7 @@ export default class DynamicArray implements DynamicArrayContract {
       }
       replacement[0] = val;
       this.dynamicArray = replacement;
-      this._capacity *= 2;
+      this.resize();
     } else {
       while (size > 0) {
         // 1. start at the end, moving each i - 1 forward 1 place
@@ -123,8 +133,10 @@ export default class DynamicArray implements DynamicArrayContract {
     for(; i < size; i++) {
       this.dynamicArray[i] = this.dynamicArray[i + 1];
     }
+
     // cheat w/ a built in to update array length
     this.dynamicArray.pop();
+    this.resize();
   }
 
   // O(1) at end
@@ -137,7 +149,7 @@ export default class DynamicArray implements DynamicArrayContract {
         replacement[i] = this.dynamicArray[i];
       }
       this.dynamicArray = replacement;
-      this._capacity*= 2;
+      this.resize();
     }
 
     let interator = this.size() - 1;
@@ -169,7 +181,12 @@ export default class DynamicArray implements DynamicArrayContract {
     // cheating w/ a built in
     // delete sets the value to undefined
     // and won't update the array length
-    return this.dynamicArray.pop();
+    // save a reference to the last value to
+    // allow the length to update
+    const last = this.dynamicArray.pop();
+    this.resize();
+
+    return last;
   }
 
   // O(n)
