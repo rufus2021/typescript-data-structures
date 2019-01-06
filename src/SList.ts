@@ -18,6 +18,7 @@ interface SListIface {
   getSize(): number;
   addAfter(key: number, value: nodeValue): void;
   addBefore(key: number, value: nodeValue): void;
+  print(): void;
 }
 
 /**
