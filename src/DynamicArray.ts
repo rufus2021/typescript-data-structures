@@ -1,4 +1,4 @@
-interface DynamicArrayIface {
+interface DynamicArrayContract {
   getCapacity(): number;
   getSize(): number;
   isEmpty(): boolean;
@@ -13,7 +13,7 @@ interface DynamicArrayIface {
   remove(val: number): void;
 }
 
-export default class DynamicArray implements DynamicArrayIface {
+export default class DynamicArray implements DynamicArrayContract {
   private dynamicArray: number[];
   private capacity: number;
 
