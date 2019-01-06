@@ -1,13 +1,13 @@
 interface DynamicArrayContract {
-  getCapacity(): number;
-  getSize(): number;
-  isEmpty(): boolean;
+  capacity(): number;
+  size(): number;
+  empty(): boolean;
   append(val: number): void;
   prepend(val: number): void;
   set(i: number, val: number): void;
-  getAt(i: number): number;
-  deleteAt(i: number): void;
-  insertAt(i: number, val: number): void;
+  get(i: number): number;
+  delete(i: number): void;
+  insert(i: number, val: number): void;
   find(val: number): number;
   pop(): number;
   remove(val: number): void;
@@ -15,30 +15,30 @@ interface DynamicArrayContract {
 
 export default class DynamicArray implements DynamicArrayContract {
   private dynamicArray: number[];
-  private capacity: number;
+  private _capacity: number;
 
   constructor() {
     this.dynamicArray = [];
-    this.capacity = 4;
+    this._capacity = 4;
   }
 
-  getCapacity(): number {
-    return this.capacity;
+  capacity(): number {
+    return this._capacity;
   }
 
-  getSize(): number {
+  size(): number {
     return this.dynamicArray.length;
   }
 
-  isEmpty(): boolean {
+  empty(): boolean {
     return this.dynamicArray.length === 0;
   }
 
   // O(1) if not at capacity
   // O(n) if at capacity
   append(val: number): void {
-    const size = this.getSize();
-    if (size === this.capacity) {
+    const size = this.size();
+    if (size === this._capacity) {
       // for learning purposes since arrays are dynamic in JavaScript
       // 1. create a new array
       // 2. copy contents to new array
@@ -51,7 +51,7 @@ export default class DynamicArray implements DynamicArrayContract {
       }
       replacement[size] = val;
       this.dynamicArray = replacement;
-      this.capacity *= 2;
+      this._capacity *= 2;
     }
 
     this.dynamicArray[size] = val;
@@ -59,8 +59,8 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(n)
   prepend(val: number): void {
-    let size = this.getSize();
-    if (size === this.capacity) {
+    let size = this.size();
+    if (size === this._capacity) {
       // for learning purposes since arrays are dynamic in JavaScript
       // 1. create a new array
       // 2. copy contents to new array (moving each item forward 1 place)
@@ -73,7 +73,7 @@ export default class DynamicArray implements DynamicArrayContract {
       }
       replacement[0] = val;
       this.dynamicArray = replacement;
-      this.capacity *= 2;
+      this._capacity *= 2;
     } else {
       while (size > 0) {
         // 1. start at the end, moving each i - 1 forward 1 place
@@ -87,7 +87,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(1)
   set(i: number, val: number): void {
-    if (i >= this.capacity) {
+    if (i >= this._capacity) {
       throw new Error('Out of range');
     }
 
@@ -96,8 +96,8 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // return value at index
   // O(1)
-  getAt(i: number) {
-    const size = this.getSize();
+  get(i: number) {
+    const size = this.size();
     if (0 === size) {
       throw new Error('Empty array');
     }
@@ -110,8 +110,8 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(1) at end
   // O(n) at arbitrary value
-  deleteAt(i: number): void {
-    const size = this.getSize();
+  delete(i: number): void {
+    const size = this.size();
     if (0 === size) {
       throw new Error('Empty array');
     }
@@ -129,18 +129,18 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(1) at end
   // O(n) at arbitrary value
-  insertAt(index: number, val: number): void {
-    const size = this.getSize();
-    if (size === this.capacity) {
+  insert(index: number, val: number): void {
+    const size = this.size();
+    if (size === this._capacity) {
       const replacement = [];
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
       }
       this.dynamicArray = replacement;
-      this.capacity*= 2;
+      this._capacity*= 2;
     }
 
-    let interator = this.getSize() - 1;
+    let interator = this.size() - 1;
     while (interator >= index) {
       this.dynamicArray[interator + 1] = this.dynamicArray[interator];
       interator--;
@@ -150,7 +150,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(n)
   find(val: number): number {
-    const size = this.getSize();
+    const size = this.size();
     for (let i = 0; i < size; i++) {
       if (this.dynamicArray[i] === val) {
         return i;
@@ -161,7 +161,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(1)
   pop(): number {
-    const size = this.getSize();
+    const size = this.size();
     if (0 === size) {
       throw new Error('Empty array');
     }
@@ -177,7 +177,7 @@ export default class DynamicArray implements DynamicArrayContract {
   // and another to update
   // remove first occurence of val
   remove(val: number): void {
-    const size = this.getSize();
+    const size = this.size();
     let index;
     for (let i = 0; i < size; i++) {
       if (this.dynamicArray[i] === val) {
