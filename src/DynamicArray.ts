@@ -59,12 +59,12 @@ export default class DynamicArray implements DynamicArrayContract {
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
       }
+      this.resize();
       replacement[size] = val;
       this.dynamicArray = replacement;
-      this.resize();
+    } else {
+      this.dynamicArray[size] = val;
     }
-
-    this.dynamicArray[size] = val;
   }
 
   // O(n)
@@ -81,9 +81,9 @@ export default class DynamicArray implements DynamicArrayContract {
       for (let i = 0; i < size; i++) {
         replacement[i + 1] = this.dynamicArray[i];
       }
+      this.resize();
       replacement[0] = val;
       this.dynamicArray = replacement;
-      this.resize();
     } else {
       while (size > 0) {
         // 1. start at the end, moving each i - 1 forward 1 place
