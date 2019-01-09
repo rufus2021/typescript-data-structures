@@ -6,6 +6,12 @@ interface QueueContract {
   empty(): boolean;
 }
 
+/**
+ * A Queue implementation using a linked list
+ * All operations are constant time since the
+ * linked list tracks the tail so no traversing
+ * is needed to reach the last item (which is the first added)
+ */
 export default class Queue extends SList implements QueueContract {
   constructor() {
     super();
