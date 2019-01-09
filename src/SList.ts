@@ -8,7 +8,7 @@ interface Node {
 interface SListIface {
   pushFront(value: nodeValue): void;
   topFront(): nodeValue | void;
-  popFront(): number | void;
+  popFront(): void;
   pushBack(value: nodeValue): void;
   topBack(): nodeValue | void;
   popBack(): void;
@@ -79,7 +79,7 @@ export default class SList implements SListIface {
 
   // remove front item
   // O(1)
-  popFront(): number | void {
+  popFront(): void {
     if (this.head === null) {
       throw new Error('Empty list');
     }
