@@ -25,7 +25,6 @@ export default class DynamicArray implements DynamicArrayContract {
   // double capacity if we reach limit
   // half capacity if we get to 1/4 use
   private resize(): void {
-    console.log('resizing ', this.size());
     if (this.size() === this._capacity) {
       this._capacity *= 2;
     } else if (this.size() === this._capacity / 4) {
