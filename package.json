@@ -5,7 +5,8 @@
   "scripts": {
     "test": "mocha --require ts-node/register test/**",
     "tdd": "mocha --require ts-node/register --watch test/**",
-    "build": "./node_modules/typescript/bin/tsc"
+    "build": "./node_modules/typescript/bin/tsc",
+    "test-one": "mocha --require ts-node/register --grep append"
   },
   "keywords": [
     "typescript",
