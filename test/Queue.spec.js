@@ -1,5 +1,5 @@
 const { default: Queue } = require('../src/Queue');
-const { assert, expect } = require('chai');
+const { assert } = require('chai');
 
 describe('Queue', () => {
   let queue;
