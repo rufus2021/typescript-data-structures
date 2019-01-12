@@ -1,5 +1,4 @@
 interface DynamicArrayContract {
-  capacity(): number;
   size(): number;
   empty(): boolean;
   append(val: number): void;
@@ -31,20 +30,6 @@ export default class DynamicArray implements DynamicArrayContract {
     this._size = 0;
   }
 
-  // double capacity if we reach limit
-  // half capacity if we get to 1/4 use
-  private resize(): void {
-    if (this._size === this._capacity) {
-      this._capacity *= 2;
-    } else if (this._size === this._capacity / 4) {
-      this._capacity /= 2;
-    }
-  }
-
-  capacity(): number {
-    return this._capacity;
-  }
-
   size(): number {
     return this._size;
   }
@@ -63,11 +48,12 @@ export default class DynamicArray implements DynamicArrayContract {
       // 3. add new value to the end
       // 4. replace old array with new
       // 5. update capacity and size
-      const replacement = new Int8Array(this._capacity * 2);
+      this._capacity *= 2;
+      const replacement = new Int8Array(this._capacity);
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
       }
-      this.resize();
+
       replacement[size] = val;
       this.dynamicArray = replacement;
     } else {
@@ -80,17 +66,16 @@ export default class DynamicArray implements DynamicArrayContract {
   prepend(val: number): void {
     let size = this.size();
     if (size === this._capacity) {
-      // for learning purposes since arrays are dynamic in JavaScript
       // 1. create a new array
       // 2. copy contents to new array (moving each item forward 1 place)
       // 3. add new value to the beginning
-      // 4. replace dynamicArray with replacement
-      // 5. update capacity
+      // 4. replace old array with new
+      // 5. update capacity and size
       const replacement = new Int8Array(this._capacity * 2);
       for (let i = 0; i < size; i++) {
         replacement[i + 1] = this.dynamicArray[i];
       }
-      this.resize();
+      this._capacity *= 2;
       replacement[0] = val;
       this.dynamicArray = replacement;
     } else {
@@ -107,7 +92,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(1)
   set(i: number, val: number): void {
-    if (i >= this._capacity) {
+    if (i >= this._size) {
       throw new Error('Out of range');
     }
 
@@ -147,7 +132,10 @@ export default class DynamicArray implements DynamicArrayContract {
     // cheat w/ a built in to update array length
     this.dynamicArray[size -1] = null;
     this._size--;
-    this.resize();
+
+    if (this._size === this._capacity / 4) {
+      this._capacity /= 2;
+    }
   }
 
   // O(1) at end
@@ -155,12 +143,12 @@ export default class DynamicArray implements DynamicArrayContract {
   insert(index: number, val: number): void {
     const size = this.size();
     if (size === this._capacity) {
-      const replacement = new Int8Array(this._capacity * 2);
+      this._capacity *= 2;
+      const replacement = new Int8Array(this._capacity);
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
       }
       this.dynamicArray = replacement;
-      this.resize();
     }
 
     let interator = this.size() - 1;
@@ -193,7 +181,10 @@ export default class DynamicArray implements DynamicArrayContract {
     const last = this.dynamicArray[size - 1];
     this.dynamicArray[size - 1] = null;
     this._size--;
-    this.resize();
+
+    if (this._size === this._capacity / 4) {
+      this._capacity /= 2;
+    }
 
     return last;
   }
@@ -225,5 +216,8 @@ export default class DynamicArray implements DynamicArrayContract {
     // one value gets removed from the array
     this.dynamicArray[size - 1] = null;
     this._size--;
+    if (this._size === this._capacity / 4) {
+      this._capacity /= 2;
+    }
   }
 }
