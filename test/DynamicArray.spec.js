@@ -35,23 +35,23 @@ describe('Dynamic Array', function () {
       assert.isFalse(dArray.empty());
     });
 
-    // it('get (empty array error)', () => {
-    //   expect(() => dArray.get(5)).to.throw('Empty array');
-    // });
+    it('get (empty array error)', () => {
+      expect(() => dArray.get(5)).to.throw('Empty array');
+    });
 
-    // it('get (out of range error)', () => {
-    //   dArray.append(1);
-    //   expect(() => dArray.get(5)).to.throw('Out of range');
-    // });
+    it('get (out of range error)', () => {
+      dArray.append(1);
+      expect(() => dArray.get(5)).to.throw('Out of range');
+    });
 
-    // it('get (returns a value at a given index)', () => {
-    //   dArray.append(1);
-    //   dArray.append(2);
-    //   dArray.append(3);
-    //   assert.equal(dArray.get(0), 1);
-    //   assert.equal(dArray.get(1), 2);
-    //   assert.equal(dArray.get(2), 3);
-    // });
+    it('get (returns a value at a given index)', () => {
+      dArray.append(1);
+      dArray.append(2);
+      dArray.append(3);
+      assert.equal(dArray.get(0), 1);
+      assert.equal(dArray.get(1), 2);
+      assert.equal(dArray.get(2), 3);
+    });
 
     it('set (out of range error)', () => {
       expect(() => dArray.set(5, 5)).to.throw('Out of range');
