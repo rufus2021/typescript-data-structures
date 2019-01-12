@@ -13,7 +13,7 @@ describe('Dynamic Array', function () {
   });
 
   it('creates an array', () => {
-    assert.isArray(dArray.dynamicArray);
+    assert.equal(dArray.dynamicArray.length, 4);
   });
 
   describe('methods', () => {
@@ -27,6 +27,7 @@ describe('Dynamic Array', function () {
     });
 
     it('empty truthy', () => {
+      dArray.append(1);
       assert.isTrue(dArray.empty());
     });
 

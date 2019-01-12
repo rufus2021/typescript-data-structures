@@ -14,12 +14,14 @@ interface DynamicArrayContract {
 }
 
 export default class DynamicArray implements DynamicArrayContract {
-  private dynamicArray: number[];
+  private dynamicArray: Int8Array;
   private _capacity: number;
+  private _size: number;
 
   constructor() {
-    this.dynamicArray = [];
+    this.dynamicArray = new Int8Array(4);
     this._capacity = 4;
+    this._size = 0;
   }
 
   // double capacity if we reach limit
@@ -37,11 +39,11 @@ export default class DynamicArray implements DynamicArrayContract {
   }
 
   size(): number {
-    return this.dynamicArray.length;
+    return this._size;
   }
 
   empty(): boolean {
-    return this.dynamicArray.length === 0;
+    return this._size === 0;
   }
 
   // O(1) if not at capacity
@@ -55,7 +57,7 @@ export default class DynamicArray implements DynamicArrayContract {
       // 3. add new value to the end
       // 4. replace dynamicArray with replacement
       // 5. update capacity
-      const replacement = [];
+      const replacement = new Int8Array(this._capacity * 2);
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
       }
@@ -77,7 +79,7 @@ export default class DynamicArray implements DynamicArrayContract {
       // 3. add new value to the beginning
       // 4. replace dynamicArray with replacement
       // 5. update capacity
-      const replacement = [];
+      const replacement = new Int8Array(this._capacity * 2);
       for (let i = 0; i < size; i++) {
         replacement[i + 1] = this.dynamicArray[i];
       }
@@ -135,7 +137,7 @@ export default class DynamicArray implements DynamicArrayContract {
     }
 
     // cheat w/ a built in to update array length
-    this.dynamicArray.pop();
+    this.dynamicArray[size -1] = null;
     this.resize();
   }
 
@@ -144,7 +146,7 @@ export default class DynamicArray implements DynamicArrayContract {
   insert(index: number, val: number): void {
     const size = this.size();
     if (size === this._capacity) {
-      const replacement = [];
+      const replacement = new Int8Array(this._capacity * 2);
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
       }
@@ -183,7 +185,7 @@ export default class DynamicArray implements DynamicArrayContract {
     // and won't update the array length
     // save a reference to the last value to
     // allow the length to update
-    const last = this.dynamicArray.pop();
+    const last = this.dynamicArray[size - 1];
     this.resize();
 
     return last;
@@ -214,6 +216,6 @@ export default class DynamicArray implements DynamicArrayContract {
     }
     // always remove the last item since
     // one value gets removed from the array
-    this.dynamicArray.pop();
+    this.dynamicArray[size - 1] = null;
   }
 }
