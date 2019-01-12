@@ -66,6 +66,7 @@ export default class DynamicArray implements DynamicArrayContract {
     } else {
       this.dynamicArray[size] = val;
     }
+    this._size++;
   }
 
   // O(n)
@@ -94,6 +95,7 @@ export default class DynamicArray implements DynamicArrayContract {
       }
       this.dynamicArray[0] = val;
     }
+    this._size++;
   }
 
   // O(1)
@@ -113,7 +115,7 @@ export default class DynamicArray implements DynamicArrayContract {
       throw new Error('Empty array');
     }
 
-    if (i >= size) {
+    if (i >= this._capacity) {
       throw new Error('Out of range');
     }
     return this.dynamicArray[i];
@@ -137,6 +139,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
     // cheat w/ a built in to update array length
     this.dynamicArray[size -1] = null;
+    this._size--;
     this.resize();
   }
 
@@ -159,6 +162,7 @@ export default class DynamicArray implements DynamicArrayContract {
       interator--;
     }
     this.dynamicArray[index] = val;
+    this._size++;
   }
 
   // O(n)
@@ -181,6 +185,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
     const last = this.dynamicArray[size - 1];
     this.dynamicArray[size - 1] = null;
+    this._size--;
     this.resize();
 
     return last;
@@ -212,5 +217,6 @@ export default class DynamicArray implements DynamicArrayContract {
     // always remove the last item since
     // one value gets removed from the array
     this.dynamicArray[size - 1] = null;
+    this._size--;
   }
 }
