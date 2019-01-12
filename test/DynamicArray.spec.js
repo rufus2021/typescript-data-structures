@@ -18,10 +18,6 @@ describe('Dynamic Array', function () {
 
   describe('methods', () => {
 
-    it('capacity', () => {
-      assert.equal(dArray.capacity(), 4);
-    });
-
     it('size', () => {
       assert.equal(dArray.size(), 0);
     });
@@ -90,10 +86,10 @@ describe('Dynamic Array', function () {
       dArray.append(3);
       dArray.append(4);
       assert.equal(dArray.get(3), 4);
-      assert.equal(dArray.capacity(), 4);
+      assert.equal(dArray._capacity, 4);
       dArray.append(5);
       assert.equal(dArray.get(4), 5);
-      assert.equal(dArray.capacity(), 8);
+      assert.equal(dArray._capacity, 8);
     });
 
     it('prepend - (with room) - adds to the beginnning', () => {
@@ -111,10 +107,10 @@ describe('Dynamic Array', function () {
       dArray.prepend(2);
       dArray.prepend(1);
       assert.equal(dArray.get(0), 1);
-      assert.equal(dArray.capacity(), 4);
+      assert.equal(dArray._capacity, 4);
       dArray.prepend(0);
       assert.equal(dArray.get(0), 0);
-      assert.equal(dArray.capacity(), 8);
+      assert.equal(dArray._capacity, 8);
     });
 
     it('delete (empty array error)', () => {
@@ -160,7 +156,7 @@ describe('Dynamic Array', function () {
       dArray.append(2);
       dArray.append(3);
       dArray.append(4);
-      assert.equal(dArray.capacity(), 4);
+      assert.equal(dArray._capacity, 4);
       assert.equal(dArray.get(0), 1);
       assert.equal(dArray.get(1), 2);
       assert.equal(dArray.get(2), 3);
@@ -171,7 +167,7 @@ describe('Dynamic Array', function () {
       assert.equal(dArray.get(2), 5);
       assert.equal(dArray.get(3), 3);
       assert.equal(dArray.get(4), 4);
-      assert.equal(dArray.capacity(), 8);
+      assert.equal(dArray._capacity, 8);
     });
 
     it('insert (with empty indexes)', () => {
@@ -179,7 +175,7 @@ describe('Dynamic Array', function () {
       dArray.append(2);
       dArray.append(3);
       dArray.append(4);
-      assert.equal(dArray.capacity(), 4);
+      assert.equal(dArray._capacity, 4);
       assert.equal(dArray.get(0), 1);
       assert.equal(dArray.get(1), 2);
       assert.equal(dArray.get(2), 3);
@@ -192,7 +188,7 @@ describe('Dynamic Array', function () {
       assert.equal(dArray.get(4), 0);
       assert.equal(dArray.get(5), 0);
       assert.equal(dArray.get(6), 5);
-      assert.equal(dArray.capacity(), 8);
+      assert.equal(dArray._capacity, 8);
     });
 
     it('find (returns the index position of a given value', () => {
@@ -270,26 +266,6 @@ describe('Dynamic Array', function () {
       assert.equal(dArray.get(5), 7);
       assert.equal(dArray.get(6), 8);
       assert.equal(dArray.get(7), 0);
-    });
-
-    it('PRIVATE resize (decreases the capacity when the new size is 1/4 of capacity', () => {
-      dArray.append(1);
-      dArray.append(2);
-      dArray.append(3);
-      dArray.append(4);
-      assert.equal(dArray.capacity(), 4);
-      dArray.append(5);
-      dArray.append(6);
-      dArray.append(7);
-      dArray.append(8);
-      dArray.append(9);
-      assert.equal(dArray.capacity(), 16);
-      dArray.pop();
-      dArray.pop();
-      dArray.pop();
-      dArray.pop();
-      dArray.pop();
-      assert.equal(dArray.capacity(), 8);
     });
   });
 });
