@@ -27,9 +27,9 @@ export default class DynamicArray implements DynamicArrayContract {
   // double capacity if we reach limit
   // half capacity if we get to 1/4 use
   private resize(): void {
-    if (this.size() === this._capacity) {
+    if (this._size === this._capacity) {
       this._capacity *= 2;
-    } else if (this.size() === this._capacity / 4) {
+    } else if (this._size === this._capacity / 4) {
       this._capacity /= 2;
     }
   }
@@ -49,14 +49,13 @@ export default class DynamicArray implements DynamicArrayContract {
   // O(1) if not at capacity
   // O(n) if at capacity
   append(val: number): void {
-    const size = this.size();
+    const size = this._size;
     if (size === this._capacity) {
-      // for learning purposes since arrays are dynamic in JavaScript
-      // 1. create a new array
+      // 1. create a new array of 2x size
       // 2. copy contents to new array
       // 3. add new value to the end
-      // 4. replace dynamicArray with replacement
-      // 5. update capacity
+      // 4. replace old array with new
+      // 5. update capacity and size
       const replacement = new Int8Array(this._capacity * 2);
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
@@ -180,12 +179,8 @@ export default class DynamicArray implements DynamicArrayContract {
       throw new Error('Empty array');
     }
 
-    // cheating w/ a built in
-    // delete sets the value to undefined
-    // and won't update the array length
-    // save a reference to the last value to
-    // allow the length to update
     const last = this.dynamicArray[size - 1];
+    this.dynamicArray[size - 1] = null;
     this.resize();
 
     return last;
