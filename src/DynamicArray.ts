@@ -13,6 +13,13 @@ interface DynamicArrayContract {
   remove(val: number): void;
 }
 
+/**
+ * A dynamic array implementation using int8Array.
+ * Note that when removing items this class sets
+ * the removed item value to null for clarity. But
+ * when checking the value will be 0 since int8Array
+ * allows only integers
+ */
 export default class DynamicArray implements DynamicArrayContract {
   private dynamicArray: Int8Array;
   private _capacity: number;
