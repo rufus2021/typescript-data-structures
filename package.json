@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Data structures in TypeScript",
   "scripts": {
-    "test": "mocha --require ts-node/register test/**",
+    "test": "mocha --bail --require ts-node/register test/**",
     "tdd": "mocha --require ts-node/register --watch test/**",
     "build": "./node_modules/typescript/bin/tsc"
   },

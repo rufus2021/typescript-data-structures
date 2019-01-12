@@ -13,21 +13,30 @@ interface DynamicArrayContract {
   remove(val: number): void;
 }
 
+/**
+ * A dynamic array implementation using int8Array.
+ * Note that when removing items this class sets
+ * the removed item value to null for clarity. But
+ * when checking the value will be 0 since int8Array
+ * allows only integers
+ */
 export default class DynamicArray implements DynamicArrayContract {
-  private dynamicArray: number[];
+  private dynamicArray: Int8Array;
   private _capacity: number;
+  private _size: number;
 
   constructor() {
-    this.dynamicArray = [];
+    this.dynamicArray = new Int8Array(4);
     this._capacity = 4;
+    this._size = 0;
   }
 
   // double capacity if we reach limit
   // half capacity if we get to 1/4 use
   private resize(): void {
-    if (this.size() === this._capacity) {
+    if (this._size === this._capacity) {
       this._capacity *= 2;
-    } else if (this.size() === this._capacity / 4) {
+    } else if (this._size === this._capacity / 4) {
       this._capacity /= 2;
     }
   }
@@ -37,25 +46,24 @@ export default class DynamicArray implements DynamicArrayContract {
   }
 
   size(): number {
-    return this.dynamicArray.length;
+    return this._size;
   }
 
   empty(): boolean {
-    return this.dynamicArray.length === 0;
+    return this._size === 0;
   }
 
   // O(1) if not at capacity
   // O(n) if at capacity
   append(val: number): void {
-    const size = this.size();
+    const size = this._size;
     if (size === this._capacity) {
-      // for learning purposes since arrays are dynamic in JavaScript
-      // 1. create a new array
+      // 1. create a new array of 2x size
       // 2. copy contents to new array
       // 3. add new value to the end
-      // 4. replace dynamicArray with replacement
-      // 5. update capacity
-      const replacement = [];
+      // 4. replace old array with new
+      // 5. update capacity and size
+      const replacement = new Int8Array(this._capacity * 2);
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
       }
@@ -65,6 +73,7 @@ export default class DynamicArray implements DynamicArrayContract {
     } else {
       this.dynamicArray[size] = val;
     }
+    this._size++;
   }
 
   // O(n)
@@ -77,7 +86,7 @@ export default class DynamicArray implements DynamicArrayContract {
       // 3. add new value to the beginning
       // 4. replace dynamicArray with replacement
       // 5. update capacity
-      const replacement = [];
+      const replacement = new Int8Array(this._capacity * 2);
       for (let i = 0; i < size; i++) {
         replacement[i + 1] = this.dynamicArray[i];
       }
@@ -93,6 +102,7 @@ export default class DynamicArray implements DynamicArrayContract {
       }
       this.dynamicArray[0] = val;
     }
+    this._size++;
   }
 
   // O(1)
@@ -112,7 +122,7 @@ export default class DynamicArray implements DynamicArrayContract {
       throw new Error('Empty array');
     }
 
-    if (i >= size) {
+    if (i >= this._capacity) {
       throw new Error('Out of range');
     }
     return this.dynamicArray[i];
@@ -135,7 +145,8 @@ export default class DynamicArray implements DynamicArrayContract {
     }
 
     // cheat w/ a built in to update array length
-    this.dynamicArray.pop();
+    this.dynamicArray[size -1] = null;
+    this._size--;
     this.resize();
   }
 
@@ -144,7 +155,7 @@ export default class DynamicArray implements DynamicArrayContract {
   insert(index: number, val: number): void {
     const size = this.size();
     if (size === this._capacity) {
-      const replacement = [];
+      const replacement = new Int8Array(this._capacity * 2);
       for (let i = 0; i < size; i++) {
         replacement[i] = this.dynamicArray[i];
       }
@@ -158,6 +169,7 @@ export default class DynamicArray implements DynamicArrayContract {
       interator--;
     }
     this.dynamicArray[index] = val;
+    this._size++;
   }
 
   // O(n)
@@ -178,12 +190,9 @@ export default class DynamicArray implements DynamicArrayContract {
       throw new Error('Empty array');
     }
 
-    // cheating w/ a built in
-    // delete sets the value to undefined
-    // and won't update the array length
-    // save a reference to the last value to
-    // allow the length to update
-    const last = this.dynamicArray.pop();
+    const last = this.dynamicArray[size - 1];
+    this.dynamicArray[size - 1] = null;
+    this._size--;
     this.resize();
 
     return last;
@@ -214,6 +223,7 @@ export default class DynamicArray implements DynamicArrayContract {
     }
     // always remove the last item since
     // one value gets removed from the array
-    this.dynamicArray.pop();
+    this.dynamicArray[size - 1] = null;
+    this._size--;
   }
 }

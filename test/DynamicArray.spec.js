@@ -13,7 +13,7 @@ describe('Dynamic Array', function () {
   });
 
   it('creates an array', () => {
-    assert.isArray(dArray.dynamicArray);
+    assert.equal(dArray.dynamicArray.length, 4);
   });
 
   describe('methods', () => {
@@ -189,8 +189,8 @@ describe('Dynamic Array', function () {
       assert.equal(dArray.get(1), 2);
       assert.equal(dArray.get(2), 3);
       assert.equal(dArray.get(3), 4);
-      assert.isUndefined(dArray.get(4));
-      assert.isUndefined(dArray.get(5));
+      assert.equal(dArray.get(4), 0);
+      assert.equal(dArray.get(5), 0);
       assert.equal(dArray.get(6), 5);
       assert.equal(dArray.capacity(), 8);
     });
@@ -229,7 +229,7 @@ describe('Dynamic Array', function () {
       dArray.append(3);
       dArray.append(4);
       dArray.remove(4);
-      expect(() => dArray.get(3)).to.throw('Out of range');
+      assert.equal(dArray.get(3), 0);
     });
 
     it('remove (deletes the index of a given value)', () => {
@@ -241,7 +241,7 @@ describe('Dynamic Array', function () {
       assert.equal(dArray.get(0), 1);
       assert.equal(dArray.get(1), 3);
       assert.equal(dArray.get(2), 4);
-      expect(() => dArray.get(3)).to.throw('Out of range');
+      assert.equal(dArray.get(3), 0);
     });
 
     it('remove with double capacity (deletes the index of a given value)', () => {
@@ -269,7 +269,7 @@ describe('Dynamic Array', function () {
       assert.equal(dArray.get(4), 5);
       assert.equal(dArray.get(5), 7);
       assert.equal(dArray.get(6), 8);
-      expect(() => dArray.get(7)).to.throw('Out of range');
+      assert.equal(dArray.get(7), 0);
     });
 
     it('PRIVATE resize (decreases the capacity when the new size is 1/4 of capacity', () => {
