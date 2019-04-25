@@ -1,10 +1,6 @@
-const { default: SList } = require('./SList');
+import SList from './SList';
+import { QueueContract } from '../types';
 
-interface QueueContract {
-  enqueue(val: number): void;
-  dequeue(): number;
-  empty(): boolean;
-}
 
 /**
  * A Queue implementation using a linked list
@@ -26,7 +22,7 @@ export default class Queue extends SList implements QueueContract {
   dequeue(): number {
     const result = this.topFront();
     this.popFront();
-    return result;
+    return result as number;
   }
 
   // O(1)

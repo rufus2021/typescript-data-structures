@@ -1,6 +1,6 @@
-import { Node, BinaryTreeIface } from '../types';
+import { Node, BinaryTreeContract } from '../types';
 
-export default class BinaryTree implements BinaryTreeIface {
+export default class BinaryTree implements BinaryTreeContract {
   root: Node;
 
   constructor(value: number) {
