@@ -1,4 +1,13 @@
-import { Node, BinaryTreeContract } from '../types';
+interface Node {
+  value: number
+  left: Node
+  right: Node
+}
+
+interface BinaryTreeContract {
+  insert(current: Node, value: number): void
+  find(current: Node, value: number): number | boolean
+}
 
 export default class BinaryTree implements BinaryTreeContract {
   root: Node;

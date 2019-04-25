@@ -1,23 +1,21 @@
-type nodeValue = number | string;
-
 interface Node {
-  data: nodeValue;
+  data: number;
   next: Node;
 }
 
-interface SListIface {
-  pushFront(value: nodeValue): void;
-  topFront(): nodeValue | void;
+interface SListContract {
+  pushFront(value: number): void;
+  topFront(): number | void;
   popFront(): void;
-  pushBack(value: nodeValue): void;
-  topBack(): nodeValue | void;
+  pushBack(value: number): void;
+  topBack(): number | void;
   popBack(): void;
-  findAt(idx: number): nodeValue | void;
+  findAt(idx: number): number | void;
   erase(idx: number): void;
   empty(): boolean;
   getSize(): number;
-  addAfter(key: number, value: nodeValue): void;
-  addBefore(key: number, value: nodeValue): void;
+  addAfter(key: number, value: number): void;
+  addBefore(key: number, value: number): void;
   print(): void;
 }
 
@@ -25,7 +23,7 @@ interface SListIface {
  * TypeScript implementation of a singley linked list
  * with a tail reference
  */
-export default class SList implements SListIface {
+export default class SList implements SListContract {
   public head: Node;
   public tail: Node;
   private size: number;
@@ -36,7 +34,7 @@ export default class SList implements SListIface {
     this.size = 0;
   }
 
-  private createNode(value: nodeValue): Node {
+  private createNode(value: number): Node {
     return {
       data: value,
       next: null
@@ -53,7 +51,7 @@ export default class SList implements SListIface {
 
   // add to front
   // O(1) constant time
-  pushFront(value: nodeValue): void {
+  pushFront(value: number): void {
     const node: Node = this.createNode(value);
     node.next = this.head;
     this.head = node;
@@ -69,7 +67,7 @@ export default class SList implements SListIface {
 
   // return front item
   // O(1)
-  topFront(): nodeValue | void {
+  topFront(): number | void {
     if (this.head === null) {
       throw new Error('Empty list');
     }
@@ -97,7 +95,7 @@ export default class SList implements SListIface {
 
   // add to end
   // O(n) | O(1) with a tail reference
-  pushBack(value: nodeValue): void {
+  pushBack(value: number): void {
     const node: Node = this.createNode(value);
 
     // if tail is null we have an empty list
@@ -113,7 +111,7 @@ export default class SList implements SListIface {
 
   // return last item
   // O(n) | O(1) with a tail reference
-  topBack(): nodeValue | void {
+  topBack(): number | void {
     if (this.head === null) {
       throw new Error('Empty list');
     }
@@ -154,7 +152,7 @@ export default class SList implements SListIface {
 
   // find a node by its index in the list
   // O(n)
-  findAt(idx: number): nodeValue | void {
+  findAt(idx: number): number | void {
     if (this.head === null) {
       throw new Error('Empty list');
     }
@@ -210,7 +208,7 @@ export default class SList implements SListIface {
 
   // add a node after the node with the value of key
   // O(n)
-  addAfter(key: nodeValue, value: nodeValue): void {
+  addAfter(key: number, value: number): void {
     const newNode: Node = this.createNode(value);
 
     let node = this.head;
@@ -238,7 +236,7 @@ export default class SList implements SListIface {
 
   // add a node before the node with the value of key
   // O(n)
-  addBefore(key: nodeValue, value: nodeValue):void {
+  addBefore(key: number, value: number):void {
     const newNode: Node = this.createNode(value);
 
     let node = this.head;

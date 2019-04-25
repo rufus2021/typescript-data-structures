@@ -1,5 +1,10 @@
 import SList from './SList';
-import { QueueContract } from '../types';
+
+interface QueueContract {
+  enqueue(val: number): void;
+  dequeue(): number;
+  empty(): boolean;
+}
 
 
 /**
