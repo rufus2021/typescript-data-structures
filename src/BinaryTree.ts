@@ -54,6 +54,3 @@ export default class BinaryTree implements BinaryTreeIface {
   }
 
 }
-
-
-// empty return root == null
