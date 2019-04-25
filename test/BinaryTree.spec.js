@@ -1,7 +1,7 @@
 const { default: BinaryTree } = require('../src/BinaryTree');
 const { assert, expect } = require('chai');
 
-describe.only('Binary Tree', () => {
+describe('Binary Tree', () => {
   let tree;
 
   beforeEach(() => {
