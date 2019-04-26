@@ -1,34 +1,26 @@
 interface Node {
-  value: number
-  left: Node
-  right: Node
+  value: number;
+  left: Node;
+  right: Node;
 }
 
 interface BinaryTreeContract {
-  insert(current: Node, value: number): void
-  find(current: Node, value: number): number | boolean
+  insert(current: Node, value: number): void;
+  find(current: Node, value: number): number | boolean;
 }
 
 export default class BinaryTree implements BinaryTreeContract {
-  root: Node;
+  public root: Node;
 
   constructor(value: number) {
     this.root = {
-      value: value,
       left: null,
-      right: null
-    }
-  }
-
-  private create(value: number): Node {
-    return {
-      value: value,
-      left: null,
-      right: null
+      right: null,
+      value,
     };
   }
 
-  insert(current: Node, value: number): void {
+  public insert(current: Node, value: number): void {
     if (value < current.value) {
       if (current.left === null) {
         current.left = this.create(value);
@@ -44,7 +36,7 @@ export default class BinaryTree implements BinaryTreeContract {
     }
   }
 
-  find(current: Node, value: number): number | boolean {
+  public find(current: Node, value: number): number | boolean {
     if (value === current.value) {
       return value;
     }
@@ -60,6 +52,14 @@ export default class BinaryTree implements BinaryTreeContract {
       }
       return this.find(current.right, value);
     }
+  }
+
+  private create(value: number): Node {
+    return {
+      left: null,
+      right: null,
+      value,
+    };
   }
 
 }

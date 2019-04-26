@@ -5,7 +5,8 @@
   "scripts": {
     "test": "mocha --bail --require ts-node/register test/**",
     "tdd": "mocha --require ts-node/register --watch test/**",
-    "build": "./node_modules/typescript/bin/tsc"
+    "build": "./node_modules/typescript/bin/tsc",
+    "ts-lint": "./node_modules/tslint/bin/tslint -p ."
   },
   "keywords": [
     "typescript",
@@ -19,6 +20,7 @@
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "ts-node": "^7.0.1",
-    "typescript": "^3.2.2"
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
   }
 }
