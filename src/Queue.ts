@@ -1,11 +1,10 @@
-import SList from './SList';
+import SList from "./SList";
 
 interface QueueContract {
   enqueue(val: number): void;
   dequeue(): number;
   empty(): boolean;
 }
-
 
 /**
  * A Queue implementation using a linked list
@@ -19,19 +18,19 @@ export default class Queue extends SList implements QueueContract {
   }
 
   // O(1)
-  enqueue(val: number): void {
+  public enqueue(val: number): void {
     this.pushBack(val);
   }
 
   // O(1)
-  dequeue(): number {
+  public dequeue(): number {
     const result = this.topFront();
     this.popFront();
     return result as number;
   }
 
   // O(1)
-  empty(): boolean {
+  public empty(): boolean {
     return this.getSize() === 0;
   }
 }

@@ -25,9 +25,9 @@ export default class CircularQueue implements CircularQueueContract {
 
   // writes to the the back of the queue ("tail" or write index)
   // O(1)
-  enqueue(val: number): void {
+  public enqueue(val: number): void {
     if (this.full()) {
-      throw new Error('Queue is full');
+      throw new Error("Queue is full");
     }
 
     this.queue[this.write] = val;
@@ -36,9 +36,9 @@ export default class CircularQueue implements CircularQueueContract {
 
   // read from the the front of the queue ("head" or read index)
   // O(1)
-  dequeue(): number {
+  public dequeue(): number {
     if (this.empty()) {
-      throw new Error('Queue is empty');
+      throw new Error("Queue is empty");
     }
 
     const value = this.queue[this.read];
@@ -48,12 +48,12 @@ export default class CircularQueue implements CircularQueueContract {
   }
 
   // O(1)
-  empty(): boolean {
+  public empty(): boolean {
     return this.read === this.write;
   }
 
   // O(1)
-  full(): boolean {
-    return (this.write + 1) % this.capacity === this.read
+  public full(): boolean {
+    return (this.write + 1) % this.capacity === this.read;
   }
 }

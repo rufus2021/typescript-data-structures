@@ -4,8 +4,8 @@
  *
  * @param n number to print primes to
  */
-export default function printPrimes (n: number) {
-  let primes: boolean[] = [false, false]; // 0 and 1 are not prime by definition
+export default function printPrimes(n: number) {
+  const primes: boolean[] = [false, false]; // 0 and 1 are not prime by definition
   let i;
 
   for (i = 2; i <= n; i++) {
@@ -22,6 +22,6 @@ export default function printPrimes (n: number) {
   }
 
   for (i = 0; i < primes.length; i++) {
-    console.log(`is ${i} prime? ${primes[i]}`);
+    return(`is ${i} prime? ${primes[i]}`);
   }
 }
