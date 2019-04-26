@@ -1,6 +1,7 @@
 {
   "extends": "tslint:recommended",
   "rules": {
-    "interface-name": [true, "never-prefix"]
+    "interface-name": [true, "never-prefix"],
+    "member-access": [true, "no-public"]
   }
 }

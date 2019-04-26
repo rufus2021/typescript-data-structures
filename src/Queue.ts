@@ -18,19 +18,19 @@ export default class Queue extends SList implements QueueContract {
   }
 
   // O(1)
-  public enqueue(val: number): void {
+  enqueue(val: number): void {
     this.pushBack(val);
   }
 
   // O(1)
-  public dequeue(): number {
+  dequeue(): number {
     const result = this.topFront();
     this.popFront();
     return result as number;
   }
 
   // O(1)
-  public empty(): boolean {
+  empty(): boolean {
     return this.getSize() === 0;
   }
 }
