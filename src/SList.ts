@@ -24,8 +24,8 @@ interface SListContract {
  * with a tail reference
  */
 export default class SList implements SListContract {
-  public head: Node;
-  public tail: Node;
+  head: Node;
+  tail: Node;
   private size: number;
 
   constructor() {
@@ -36,7 +36,7 @@ export default class SList implements SListContract {
 
   // add to front
   // O(1) constant time
-  public pushFront(value: number): void {
+  pushFront(value: number): void {
     const node: Node = this.createNode(value);
     node.next = this.head;
     this.head = node;
@@ -52,7 +52,7 @@ export default class SList implements SListContract {
 
   // return front item
   // O(1)
-  public topFront(): number | void {
+  topFront(): number | void {
     if (this.head === null) {
       throw new Error("Empty list");
     }
@@ -62,7 +62,7 @@ export default class SList implements SListContract {
 
   // remove front item
   // O(1)
-  public popFront(): void {
+  popFront(): void {
     if (this.head === null) {
       throw new Error("Empty list");
     }
@@ -80,7 +80,7 @@ export default class SList implements SListContract {
 
   // add to end
   // O(n) | O(1) with a tail reference
-  public pushBack(value: number): void {
+  pushBack(value: number): void {
     const node: Node = this.createNode(value);
 
     // if tail is null we have an empty list
@@ -96,7 +96,7 @@ export default class SList implements SListContract {
 
   // return last item
   // O(n) | O(1) with a tail reference
-  public topBack(): number | void {
+  topBack(): number | void {
     if (this.head === null) {
       throw new Error("Empty list");
     }
@@ -111,7 +111,7 @@ export default class SList implements SListContract {
 
   // remove last item
   // O(n)
-  public popBack(): void {
+  popBack(): void {
     if (this.head === null) {
       throw new Error("Empty list");
     }
@@ -137,7 +137,7 @@ export default class SList implements SListContract {
 
   // find a node by its index in the list
   // O(n)
-  public findAt(idx: number): number | void {
+  findAt(idx: number): number | void {
     if (this.head === null) {
       throw new Error("Empty list");
     }
@@ -156,7 +156,7 @@ export default class SList implements SListContract {
 
   // delete a node at a given index
   // O(n)
-  public erase(idx: number): void {
+  erase(idx: number): void {
     if (this.head === null) {
       throw new Error("Empty list");
     }
@@ -193,7 +193,7 @@ export default class SList implements SListContract {
 
   // add a node after the node with the value of key
   // O(n)
-  public addAfter(key: number, value: number): void {
+  addAfter(key: number, value: number): void {
     const newNode: Node = this.createNode(value);
 
     let node = this.head;
@@ -221,7 +221,7 @@ export default class SList implements SListContract {
 
   // add a node before the node with the value of key
   // O(n)
-  public addBefore(key: number, value: number): void {
+  addBefore(key: number, value: number): void {
     const newNode: Node = this.createNode(value);
 
     let node = this.head;
@@ -253,15 +253,15 @@ export default class SList implements SListContract {
 
   // check if the list is empty
   // O(1)
-  public empty(): boolean {
+  empty(): boolean {
     return this.head === null;
   }
 
-  public getSize(): number {
+  getSize(): number {
     return this.size;
   }
 
-  public print(): void {
+  print(): void {
     if (this.head === null) {
       return;
     }

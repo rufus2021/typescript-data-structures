@@ -30,17 +30,17 @@ export default class DynamicArray implements DynamicArrayContract {
     this.size = 0;
   }
 
-  public getSize(): number {
+  getSize(): number {
     return this.size;
   }
 
-  public empty(): boolean {
+  empty(): boolean {
     return this.size === 0;
   }
 
   // O(1) if not at capacity
   // O(n) if at capacity
-  public append(val: number): void {
+  append(val: number): void {
     const size = this.size;
     if (size === this.capacity) {
       // 1. create a new array of 2x size
@@ -63,7 +63,7 @@ export default class DynamicArray implements DynamicArrayContract {
   }
 
   // O(n)
-  public prepend(val: number): void {
+  prepend(val: number): void {
     let size = this.getSize();
     if (size === this.capacity) {
       // 1. create a new array
@@ -91,7 +91,7 @@ export default class DynamicArray implements DynamicArrayContract {
   }
 
   // O(1)
-  public set(i: number, val: number): void {
+  set(i: number, val: number): void {
     if (i >= this.size) {
       throw new Error("Out of range");
     }
@@ -101,7 +101,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // return value at index
   // O(1)
-  public get(i: number) {
+  get(i: number) {
     const size = this.getSize();
     if (0 === size) {
       throw new Error("Empty array");
@@ -115,7 +115,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(1) at end
   // O(n) at arbitrary value
-  public delete(i: number): void {
+  delete(i: number): void {
     const size = this.getSize();
     if (0 === size) {
       throw new Error("Empty array");
@@ -140,7 +140,7 @@ export default class DynamicArray implements DynamicArrayContract {
 
   // O(1) at end
   // O(n) at arbitrary value
-  public insert(index: number, val: number): void {
+  insert(index: number, val: number): void {
     const size = this.getSize();
     if (size === this.capacity) {
       this.capacity *= 2;
@@ -161,7 +161,7 @@ export default class DynamicArray implements DynamicArrayContract {
   }
 
   // O(n)
-  public find(val: number): number {
+  find(val: number): number {
     const size = this.getSize();
     for (let i = 0; i < size; i++) {
       if (this.dynamicArray[i] === val) {
@@ -172,7 +172,7 @@ export default class DynamicArray implements DynamicArrayContract {
   }
 
   // O(1)
-  public pop(): number {
+  pop(): number {
     const size = this.getSize();
     if (0 === size) {
       throw new Error("Empty array");
@@ -193,7 +193,7 @@ export default class DynamicArray implements DynamicArrayContract {
   // iterate once to find the index of val
   // and another to update
   // remove first occurence of val
-  public remove(val: number): void {
+  remove(val: number): void {
     const size = this.getSize();
     let index;
     for (let i = 0; i < size; i++) {

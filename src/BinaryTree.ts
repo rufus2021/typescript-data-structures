@@ -10,7 +10,7 @@ interface BinaryTreeContract {
 }
 
 export default class BinaryTree implements BinaryTreeContract {
-  public root: Node;
+  root: Node;
 
   constructor(value: number) {
     this.root = {
@@ -20,7 +20,7 @@ export default class BinaryTree implements BinaryTreeContract {
     };
   }
 
-  public insert(current: Node, value: number): void {
+  insert(current: Node, value: number): void {
     if (value < current.value) {
       if (current.left === null) {
         current.left = this.create(value);
@@ -36,7 +36,7 @@ export default class BinaryTree implements BinaryTreeContract {
     }
   }
 
-  public find(current: Node, value: number): number | boolean {
+  find(current: Node, value: number): number | boolean {
     if (value === current.value) {
       return value;
     }
