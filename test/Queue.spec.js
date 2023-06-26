@@ -1,5 +1,5 @@
-const { default: Queue } = require('../src/Queue');
-const { assert } = require('chai');
+import Queue from '../src/Queue';
+import { assert } from 'chai';
 
 describe('Queue', () => {
   let queue;

@@ -2,12 +2,14 @@
   "compilerOptions": {
     "noImplicitAny": true
   },
+  "module": "ESNext",
   "include": [
     "src/**/*",
     "misc/**/*"
   ],
   "exclude": [
       "node_modules",
-      "package-lock.json"
+      "package-lock.json",
+      "**/*.spec.ts"
   ]
 }

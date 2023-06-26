@@ -1,5 +1,5 @@
-const { default: SList } = require('../src/SList');
-const { assert, expect } = require('chai');
+import SList from '../src/SList';
+import { assert, expect } from 'chai';
 
 
 describe('Singley Linked List', function () {
@@ -8,7 +8,7 @@ describe('Singley Linked List', function () {
     sList = new SList();
   });
 
-  after(() => {
+  afterEach(() => {
     sList = null;
   });
 

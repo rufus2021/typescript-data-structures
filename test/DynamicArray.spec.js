@@ -1,5 +1,5 @@
-const { default: DynamicArray } = require('../src/DynamicArray');
-const { assert, expect } = require('chai');
+import DynamicArray from '../src/DynamicArray';
+import { assert, expect } from 'chai';
 
 describe('Dynamic Array', function () {
   let dArray;

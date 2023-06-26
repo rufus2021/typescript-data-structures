@@ -1,5 +1,5 @@
-const { default: BinaryTree } = require('../src/BinaryTree');
-const { assert, expect } = require('chai');
+import BinaryTree from '../src/BinaryTree';
+import { assert } from 'chai';
 
 describe('Binary Tree', () => {
   let tree;
