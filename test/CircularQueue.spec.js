@@ -1,5 +1,5 @@
-const { default: CircularQueue } = require('../src/CircularQueue');
-const { assert, expect } = require('chai');
+import CircularQueue from '../src/CircularQueue';
+import { assert, expect } from 'chai';
 
 describe('Circular Queue', () => {
   let queue;
